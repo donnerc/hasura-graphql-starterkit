@@ -24,15 +24,13 @@ services:
       - db
     depends_on:
       - "db"
-    env_file:
-      - .env
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: "postgres://admin:${POSTGRES_PASSWORD}@db/postgres"
+      HASURA_GRAPHQL_DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_ADMIN_SECRET_KEY}"
-      HASURA_GRAPHQL_JWT_SECRET: "${HASURA_GRAPHQL_JWT_SECRET}"
+      HASURA_GRAPHQL_JWT_SECRET: '{"type": "${HASURA_GRAPHQL_JWT_ALGO}","key": "${HASURA_GRAPHQL_JWT_SECRET_KEY}","claims_namespace": "https://${HOST}/jwt/claims","claims_format": "json","issuer": "${HOST}"}'
       VIRTUAL_HOST: "api.${HOST}"
       LETSENCRYPT_HOST: "api.${HOST}"
       LETSENCRYPT_EMAIL: ${ADMIN_EMAIL}
@@ -41,8 +39,6 @@ services:
     network_mode: "bridge"
     image: dpage/pgadmin4:latest
     restart: always
-    env_file:
-      - .env
     environment:
       PGADMIN_DEFAULT_EMAIL: ${ADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
