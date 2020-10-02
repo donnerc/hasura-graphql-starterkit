@@ -7,6 +7,7 @@
 ```bash
 cd nginx-letsencrypt
 docker-compose up -d
+cd ..
 ```
 
 From now on, all docker container started with special environment variables `LETSENCRYPT_HOST`, `LETSENCRYPT_EMAIL` and `VIRTUAL_HOST` will be accessible under HTTPS behind NGINX with a Let's Encrypt signed certificate.
