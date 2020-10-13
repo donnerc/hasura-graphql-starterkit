@@ -34,7 +34,35 @@ services:
       HASURA_GRAPHQL_JWT_SECRET: '{"type": "${HASURA_GRAPHQL_JWT_ALGO}","key": "${HASURA_GRAPHQL_JWT_SECRET_KEY}","claims_namespace": "${HASURA_JWT_NAMESPACE}","claims_format": "json","issuer": "${HOST}"}'
       VIRTUAL_HOST: "api.${HOST}"
       LETSENCRYPT_HOST: "api.${HOST}"
-      LETSENCRYPT_EMAIL: ${ADMIN_EMAIL}    
+      LETSENCRYPT_EMAIL: ${ADMIN_EMAIL}
+
+  # auth-server:
+  #   image: golang:1.12.7-buster
+  #   restart: always
+  #   #deploy: 
+  #   ports:
+  #     - "8081"
+  #   volumes:
+  #     - "./auth:/auth"
+  #   depends_on:
+  #     - "db"
+  #   environment:
+  #     POSTGRES_PORT: 5432
+  #     POSTGRES_DATABASE: ${POSTGRES_DB}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_HOST: db
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     SIGNINGKEY: ${HASURA_GRAPHQL_JWT_SECRET_KEY}
+  #     VIRTUAL_HOST: "auth.${HOST}"
+  #     LETSENCRYPT_HOST: "auth.${HOST}"
+  #     LETSENCRYPT_EMAIL: ${ADMIN_EMAIL}
+  #   network_mode: "bridge"
+  #   links:
+  #     - db
+  
+  #   working_dir: /auth
+  #   command: sh -c "cd /auth && go install && echo '----------------' && go run main.go"
+    
     
     
 volumes:
