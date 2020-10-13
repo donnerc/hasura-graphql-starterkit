@@ -28,8 +28,6 @@ services:
       HASURA_GRAPHQL_DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
-      #HASURA_GRAPHQL_JWT_SECRET: '{"type": "RS256", "jwk_url": "http://hbp:3000/auth/jwks"}'
-      ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_ADMIN_SECRET_KEY}"
       HASURA_GRAPHQL_JWT_SECRET: '{"type": "${HASURA_GRAPHQL_JWT_ALGO}","key": "${HASURA_GRAPHQL_JWT_SECRET_KEY}","claims_namespace": "${HASURA_JWT_NAMESPACE}","claims_format": "json","issuer": "${HOST}"}'
       VIRTUAL_HOST: "api.${HOST}"
